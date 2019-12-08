@@ -1,0 +1,80 @@
+﻿@model WebApplication9.Mission
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Mission</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MissionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MissionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PresidentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PresidentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Language)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Climate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Climate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DominantReligion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DominantReligion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Symbol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Symbol)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
