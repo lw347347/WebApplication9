@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MissionQuestions">
+          <Key>
+            <PropertyRef Name="MissionQuestionID" />
+          </Key>
+          <Property Name="MissionQuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MissionID" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Question" Type="varchar(max)" />
+          <Property Name="Answer" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Missions">
+          <Key>
+            <PropertyRef Name="MissionID" />
+          </Key>
+          <Property Name="MissionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MissionName" Type="varchar" MaxLength="50" />
+          <Property Name="PresidentName" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="Language" Type="varchar" MaxLength="50" />
+          <Property Name="Climate" Type="varchar" MaxLength="50" />
+          <Property Name="DominantReligion" Type="varchar" MaxLength="50" />
+          <Property Name="Symbol" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_MissionQuestions_ToMissions">
+          <End Role="Missions" Type="Self.Missions" Multiplicity="0..1" />
+          <End Role="MissionQuestions" Type="Self.MissionQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Missions">
+              <PropertyRef Name="MissionID" />
+            </Principal>
+            <Dependent Role="MissionQuestions">
+              <PropertyRef Name="MissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MissionQuestions_ToUsers">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="MissionQuestions" Type="Self.MissionQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MissionQuestions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="MissionQuestions" EntityType="Self.MissionQuestions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Missions" EntityType="Self.Missions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_MissionQuestions_ToMissions" Association="Self.FK_MissionQuestions_ToMissions">
+            <End Role="Missions" EntitySet="Missions" />
+            <End Role="MissionQuestions" EntitySet="MissionQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MissionQuestions_ToUsers" Association="Self.FK_MissionQuestions_ToUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MissionQuestions" EntitySet="MissionQuestions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MissionQuestion">
+          <Key>
+            <PropertyRef Name="MissionQuestionID" />
+          </Key>
+          <Property Name="MissionQuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MissionID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Mission" Relationship="Self.FK_MissionQuestions_ToMissions" FromRole="MissionQuestions" ToRole="Missions" />
+          <NavigationProperty Name="User" Relationship="Self.FK_MissionQuestions_ToUsers" FromRole="MissionQuestions" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Mission">
+          <Key>
+            <PropertyRef Name="MissionID" />
+          </Key>
+          <Property Name="MissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MissionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PresidentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Climate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DominantReligion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Symbol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MissionQuestions" Relationship="Self.FK_MissionQuestions_ToMissions" FromRole="Missions" ToRole="MissionQuestions" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MissionQuestions" Relationship="Self.FK_MissionQuestions_ToUsers" FromRole="Users" ToRole="MissionQuestions" />
+        </EntityType>
+        <Association Name="FK_MissionQuestions_ToMissions">
+          <End Role="Missions" Type="Self.Mission" Multiplicity="0..1" />
+          <End Role="MissionQuestions" Type="Self.MissionQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Missions">
+              <PropertyRef Name="MissionID" />
+            </Principal>
+            <Dependent Role="MissionQuestions">
+              <PropertyRef Name="MissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MissionQuestions_ToUsers">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="MissionQuestions" Type="Self.MissionQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MissionQuestions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MissionQuestions" EntityType="Self.MissionQuestion" />
+          <EntitySet Name="Missions" EntityType="Self.Mission" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_MissionQuestions_ToMissions" Association="Self.FK_MissionQuestions_ToMissions">
+            <End Role="Missions" EntitySet="Missions" />
+            <End Role="MissionQuestions" EntitySet="MissionQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MissionQuestions_ToUsers" Association="Self.FK_MissionQuestions_ToUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MissionQuestions" EntitySet="MissionQuestions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="MissionQuestions">
+            <EntityTypeMapping TypeName="Database1Model.MissionQuestion">
+              <MappingFragment StoreEntitySet="MissionQuestions">
+                <ScalarProperty Name="MissionQuestionID" ColumnName="MissionQuestionID" />
+                <ScalarProperty Name="MissionID" ColumnName="MissionID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Missions">
+            <EntityTypeMapping TypeName="Database1Model.Mission">
+              <MappingFragment StoreEntitySet="Missions">
+                <ScalarProperty Name="MissionID" ColumnName="MissionID" />
+                <ScalarProperty Name="MissionName" ColumnName="MissionName" />
+                <ScalarProperty Name="PresidentName" ColumnName="PresidentName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Climate" ColumnName="Climate" />
+                <ScalarProperty Name="DominantReligion" ColumnName="DominantReligion" />
+                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Database1Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
