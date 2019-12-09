@@ -11,6 +11,7 @@ using WebApplication9;
 
 namespace WebApplication9.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class MissionQuestionsController : Controller
     {

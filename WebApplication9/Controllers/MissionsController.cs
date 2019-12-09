@@ -10,6 +10,7 @@ using WebApplication9;
 
 namespace WebApplication9.Controllers
 {
+    [RequireHttps]
     public class MissionsController : Controller
     {
         private Database1Entities db = new Database1Entities();

@@ -50,19 +50,20 @@ namespace WebApplication9
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+
+            app.UseTwitterAuthentication(
+               consumerKey: "UeyYYlajWlSdyrtUAsbdfEN5g",
+               consumerSecret: "33h1DkuAnoWsg20LfOLZJfMIW3RI0zF703UdWsz8DnLXLl0azQ");
 
             //app.UseFacebookAuthentication(
             //   appId: "",
             //   appSecret: "");
 
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            {
-                ClientId = "738565493683-so38m86grbv5sg89r64ksoilrua6m7kt.apps.googleusercontent.com",
-                ClientSecret = "jZkrccdlX1TrJUpCDgfKW-vd"
-            });
+            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //{
+            //    ClientId = "738565493683-4il0m3ejvvqo8o44jdotd4n1492ud8av.apps.googleusercontent.com",
+            //    ClientSecret = "AMKDFMXOREzshoahqk4BNh57"
+            //});
         }
     }
 }

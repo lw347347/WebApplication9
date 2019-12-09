@@ -11,8 +11,7 @@ using Microsoft.Owin.Security;
 using WebApplication9.Models;
 
 namespace WebApplication9.Controllers
-{
-    [Authorize]
+{ 
     public class AccountController : Controller
     {
         private Database1Entities db = new Database1Entities();
