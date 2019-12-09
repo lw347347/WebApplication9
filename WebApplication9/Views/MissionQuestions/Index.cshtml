@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Post a New Question", "Create")
 </p>
 <table class="table">
     <tr>
@@ -41,9 +41,7 @@
             @Html.DisplayFor(modelItem => item.User.UserEmail)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MissionQuestionID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MissionQuestionID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MissionQuestionID })
+            @Html.ActionLink("Post an Answer", "Edit", new { id=item.MissionQuestionID })
         </td>
     </tr>
 }

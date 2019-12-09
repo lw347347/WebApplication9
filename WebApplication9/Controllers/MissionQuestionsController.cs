@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using WebApplication9;
 
 namespace WebApplication9.Controllers
 {
+    [Authorize]
     public class MissionQuestionsController : Controller
     {
         private Database1Entities db = new Database1Entities();
@@ -53,6 +55,14 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Make the userID the same as the current user 
+                // Find the user first
+                string userToFind = User.Identity.Name;
+
+                User originalUser = db.Users.FirstOrDefault(x => x.UserEmail == userToFind);
+
+                missionQuestion.UserID = originalUser.UserID;
+
                 db.MissionQuestions.Add(missionQuestion);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -96,41 +106,6 @@ namespace WebApplication9.Controllers
             ViewBag.MissionID = new SelectList(db.Missions, "MissionID", "MissionName", missionQuestion.MissionID);
             ViewBag.UserID = new SelectList(db.Users, "UserID", "UserEmail", missionQuestion.UserID);
             return View(missionQuestion);
-        }
-
-        // GET: MissionQuestions/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MissionQuestion missionQuestion = db.MissionQuestions.Find(id);
-            if (missionQuestion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(missionQuestion);
-        }
-
-        // POST: MissionQuestions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            MissionQuestion missionQuestion = db.MissionQuestions.Find(id);
-            db.MissionQuestions.Remove(missionQuestion);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        }        
     }
 }
